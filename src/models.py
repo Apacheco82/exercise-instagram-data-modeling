@@ -12,7 +12,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'user'
-    # Here we define columns for the table person
+
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     username = Column(String(80), nullable=False)
@@ -26,24 +26,24 @@ class User(Base):
 
 class Post(Base):
     __tablename__ = 'post'
-    # Here we define columns for the table address.
+
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'),nullable=False)
     user = relationship(User)
-    image = Column(String(250))
+    image = Column(String(250)nullable=False)
     description = Column(String(250), nullable=False)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
     
 class Comments(Base):
     __tablename__ = 'comments'
-    # Here we define columns for the table address.
+
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
-    post_id = Column(Integer, ForeignKey('user.id'))
+    post_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     post = relationship(Post)
     content = Column(String(250), nullable=False)
     created_at = Column(DateTime)
@@ -51,24 +51,24 @@ class Comments(Base):
 
 class Like(Base):
     __tablename__ = 'like'
-    # Here we define columns for the table address.
+
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
-    post_id = Column(Integer, ForeignKey('user.id'))
+    post_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     post = relationship(Post)
     
 
 
 class Follower(Base):
     __tablename__ = 'follower'
-    # Here we define columns for the table address.
+
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    follower_id = Column(Integer, ForeignKey('user.id'))
+    follower_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     follower = relationship(User)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
     accepted = Column(Boolean())
 
